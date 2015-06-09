@@ -24,12 +24,15 @@ namespace SURF
     public partial class MainWindow : Window
     {
         Image<Bgr, Byte> SURF_image;
+        Image<Bgr, Byte> SURF_image_result;
         Image[] img;
         Button[] btn;
         TextBox[] txt;
         TextBox[] txt_class;
         Button[] btn_clear;
         Image<Bgr, Byte>[] class_image;
+
+        Image[] img_class_result;
         public MainWindow()
         {
             InitializeComponent();
@@ -40,6 +43,7 @@ namespace SURF
             txt_class = new TextBox[] { txt_class_1, txt_class_2, txt_class_3, txt_class_4, txt_class_5 };
             btn_clear = new Button[] { btn_clear_1, btn_clear_2, btn_clear_3, btn_clear_4, btn_clear_5 };
             class_image = new Image<Bgr, byte>[5];
+            img_class_result = new Image[] { img_result_1, img_result_2, img_result_3, img_result_4, img_result_5 };
         }
 
         #region  вкладка "SURF детектор"
@@ -96,7 +100,7 @@ namespace SURF
                 txt[n].Text = openFileDialog.FileName;
             class_image[n] = new Image<Bgr, byte>(txt[n].Text);
             img[n].Source = BitmapSourceConvert.ToBitmapSource(class_image[n]);
-
+            img_class_result[n].Source = BitmapSourceConvert.ToBitmapSource(class_image[n]);
         }
         // Удаление информации из обучающей выборки
         private void btn_clear_Click(object sender, RoutedEventArgs e)
@@ -118,9 +122,47 @@ namespace SURF
                     break;
             }
             img[n].Source = null;
+            img_class_result[n].Source = null;
             txt[n].Text = "";
             txt_class[n].Text = Convert.ToString(n + 1);
             class_image[n] = null;
+        }
+        #endregion
+
+        #region  вкладка "Результаты"
+        // Отображение гомографии и гистограммы нейронной сети
+        private void img_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (SURF_image_result == null)
+                MessageBox.Show("Результат не расчитан (нажмите кнопку \"Отобразить результат\")");
+            else
+            {
+                int n = 0;
+                switch ((sender as Image).Name)
+                {
+                    case "img_result_1":
+                        n = 0; break;
+                    case "img_result_2":
+                        n = 1; break;
+                    case "img_result_3":
+                        n = 2; break;
+                    case "img_result_4":
+                        n = 3; break;
+                    case "img_result_5":
+                        n = 4; break;
+                    default:
+                        break;
+                }
+
+                Image<Bgr, Byte> result = DrawMatches.DrawWithHomography(class_image[n], SURF_image, SURF_image_result);
+                img_result.Source = BitmapSourceConvert.ToBitmapSource(result);
+            }
+        }
+        // Кнопка отобразить результаты
+        private void btn_result_Click(object sender, RoutedEventArgs e)
+        {
+            SURF_image_result = DrawMatches.Draw(class_image, SURF_image);
+            img_result.Source = BitmapSourceConvert.ToBitmapSource(SURF_image_result);
         }
         #endregion
     }

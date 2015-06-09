@@ -130,6 +130,7 @@
     <Content Include="cvextern.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="negative.png" />
     <Content Include="OpenCL.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

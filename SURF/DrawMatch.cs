@@ -16,8 +16,9 @@ namespace SURF
 {
     public static class DrawMatches
     {
-        public static void FindMatch(Image<Bgr, Byte> modelImage, Image<Bgr, byte> observedImage,  
-            out VectorOfKeyPoint modelKeyPoints, out VectorOfKeyPoint observedKeyPoints, 
+        // Находит гомографию и ругие параметры
+        public static void FindMatch(Image<Bgr, Byte> modelImage, VectorOfKeyPoint observedKeyPoints,
+            Matrix<float> observedDescriptors, out VectorOfKeyPoint modelKeyPoints, 
             out Matrix<int> indices, out Matrix<byte> mask, out HomographyMatrix homography)
         {
             int k = 2;
@@ -30,11 +31,6 @@ namespace SURF
             modelKeyPoints = new VectorOfKeyPoint();
             Image<Gray, Byte> cpuModelImage = modelImage.Convert<Gray, byte>();
             Matrix<float> modelDescriptors = surfCPU.DetectAndCompute(cpuModelImage, null, modelKeyPoints);
-
-            // Вычисление ключевой точки и сразу дескриптора(локальной особенности) для observe image
-            observedKeyPoints = new VectorOfKeyPoint();
-            Image<Gray, Byte> cpuObservedImage = observedImage.Convert<Gray, byte>();
-            Matrix<float> observedDescriptors = surfCPU.DetectAndCompute(cpuObservedImage, null, observedKeyPoints);
 
             // Сравнение дескрипторов
             BruteForceMatcher<float> matcher = new BruteForceMatcher<float>(DistanceType.L2);
@@ -59,44 +55,76 @@ namespace SURF
                         observedKeyPoints, indices, mask, 2);
             }         
         }
-
-        /// <summary>
-        /// Draw the model image and observed image, the matched features and homography projection.
-        /// </summary>
-        /// <param name="modelImage">The model image</param>
-        /// <param name="observedImage">The observed image</param>
-        /// <returns>The model image and observed image, the matched features and homography projection.</returns>
-        public static HomographyMatrix Draw(Image<Bgr, Byte> modelImage, Image<Bgr, byte> observedImage)
+        // Возвращает изображение с гомографией(сопоставлением) одного объекта
+        public static Image<Bgr, Byte> DrawWithHomography(Image<Bgr, Byte> modelImage,
+            Image<Bgr, byte> observedImage, Image<Bgr, byte> SURF_image_result)
         {
             HomographyMatrix homography;
             VectorOfKeyPoint modelKeyPoints;
             VectorOfKeyPoint observedKeyPoints;
+            Matrix<float> observedDescriptors;
             Matrix<int> indices;
             Matrix<byte> mask;
 
-            FindMatch(modelImage, observedImage,  out modelKeyPoints, out observedKeyPoints, out indices, out mask, out homography);
+            observedKeyPoints = KeyPointAndFeatures(observedImage, out observedDescriptors);
+
+            FindMatch(modelImage, observedKeyPoints, observedDescriptors, out modelKeyPoints,
+                        out indices, out mask, out homography);
 
             //Draw the matched keypoints
-           //Image<Bgr, Byte> result = Features2DToolbox.DrawMatches(modelImage, modelKeyPoints, observedImage, observedKeyPoints,
-           //   indices, new Bgr(255, 0, 0), new Bgr(0, 255, 0), mask, Features2DToolbox.KeypointDrawType.DEFAULT);
+            Image<Bgr, Byte> result = Features2DToolbox.DrawMatches(modelImage, modelKeyPoints, SURF_image_result, observedKeyPoints,
+               indices, new Bgr(255, 0, 0), new Bgr(0, 255, 0), mask, Features2DToolbox.KeypointDrawType.NOT_DRAW_SINGLE_POINTS);
 
-            return homography;
+            return result;
+
         }
+        // Возвращает все найденные объекты
+        public static Image<Bgr, Byte> Draw(Image<Bgr, Byte>[] modelImage, Image<Bgr, byte> observedImage)
+        {
+            HomographyMatrix homography;
+            VectorOfKeyPoint modelKeyPoints;
+            VectorOfKeyPoint observedKeyPoints;
+            Matrix<float> observedDescriptors;
+            Matrix<int> indices;
+            Matrix<byte> mask;
 
+            observedKeyPoints = KeyPointAndFeatures(observedImage, out observedDescriptors);
+
+            for(int i = 0; i< modelImage.Length; i++)
+            {
+                if (modelImage[i] != null)
+                {
+                    FindMatch(modelImage[i], observedKeyPoints, observedDescriptors, out modelKeyPoints,
+                        out indices, out mask, out homography);
+                    observedImage = DrawRectangle(modelImage[i], observedImage, homography);
+                }
+            }
+
+            return observedImage;
+        }
+        // Возвращает ключевые точки и локальные особенности одного изображения
+        public static VectorOfKeyPoint KeyPointAndFeatures(Image<Bgr, Byte> image, out Matrix<float> descriptors)
+        {
+            SURFDetector surfCPU = new SURFDetector(500, false);
+            VectorOfKeyPoint keyPoints = new VectorOfKeyPoint();
+            Image<Gray, Byte> cpuImage = image.Convert<Gray, byte>();
+            descriptors = surfCPU.DetectAndCompute(cpuImage, null, keyPoints);
+            return keyPoints;
+        }
+        // Показывает только локальные особенности без гомографии
         public static Image<Bgr, Byte> SingleDraw(Image<Bgr, Byte> image)
         {
             SURFDetector surfCPU = new SURFDetector(500, false);
 
-            // Вычисление ключевой точки(Detect) и сразу дескриптора(локальной особенности, Compute) для model image
+            // Вычисление ключевой точки(Detect) и сразу дескриптора(локальной особенности, Compute) для image
             VectorOfKeyPoint keyPoints = new VectorOfKeyPoint();
             Image<Gray, Byte> cpuImage = image.Convert<Gray, byte>();
             Matrix<float> Descriptors = surfCPU.DetectAndCompute(cpuImage, null, keyPoints);
             return Features2DToolbox.DrawKeypoints(image, keyPoints, new Bgr(255, 0, 0), Features2DToolbox.KeypointDrawType.DEFAULT);
         }
-
-        public static Image<Bgr, Byte> DrawRectangle(Image<Bgr, Byte> modelImage, Image<Bgr, Byte> observedImage, HomographyMatrix homography, Bgr color)
+        // Рисует рамку вокруг найденного изображения
+        public static Image<Bgr, Byte> DrawRectangle(Image<Bgr, Byte> modelImage, Image<Bgr, Byte> observedImage, HomographyMatrix homography)
         {
-            #region draw the projected region on the image
             if (homography != null)
             {  //draw a rectangle along the projected model
                 Rectangle rect = modelImage.ROI;
@@ -107,9 +135,8 @@ namespace SURF
                new PointF(rect.Left, rect.Top)};
                 homography.ProjectPoints(pts);
 
-                observedImage.DrawPolyline(Array.ConvertAll<PointF, Point>(pts, Point.Round), true, color, 2);
+                observedImage.DrawPolyline(Array.ConvertAll<PointF, Point>(pts, Point.Round), true, new Bgr(Color.Red), 2);
             }
-            #endregion
 
             return observedImage;
         }

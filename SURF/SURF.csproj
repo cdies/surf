@@ -131,6 +131,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="negative.png" />
+    <Resource Include="logo_fak.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="logo_mai.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="OpenCL.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

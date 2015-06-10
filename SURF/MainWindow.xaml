@@ -91,7 +91,13 @@
                 </Grid>
             </TabItem>
             <TabItem Header="О прогамме">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="620" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="969"/>
+                    <TextBlock HorizontalAlignment="Left" Height="79" Margin="157,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="615" FontSize="16" TextAlignment="Center"><Span FontFamily="Calibri Cyr" Language="ru-ru"><Run Text="Министерство образования и науки РФ"/></Span><LineBreak/><Span FontFamily="Calibri Cyr" Language="ru-ru"><Run Text="Московский авиационный институт"/></Span><LineBreak/><Span FontFamily="Calibri Cyr" Language="ru-ru"><Run Text="(национальный исследовательский университет)"/></Span></TextBlock>
+                    <Image HorizontalAlignment="Left" Height="156" Margin="190,211,0,0" VerticalAlignment="Top" Width="192" Source="logo_mai.png"/>
+                    <Image HorizontalAlignment="Left" Height="156" Margin="602,211,0,0" VerticalAlignment="Top" Width="170" Source="logo_fak.png"/>
+                    <TextBlock HorizontalAlignment="Left" Height="78" Margin="222,460,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="492" TextAlignment="Center" FontSize="16"><Run Language="ru-ru" Text="3 факультет, кафедра 304"/><LineBreak/><Run Language="ru-ru"/><LineBreak/><Run Language="ru-ru" Text="Москва, 2015"/></TextBlock>
+                </Grid>
             </TabItem>
         </TabControl>
 

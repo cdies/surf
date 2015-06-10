@@ -161,8 +161,13 @@ namespace SURF
         // Кнопка отобразить результаты
         private void btn_result_Click(object sender, RoutedEventArgs e)
         {
-            SURF_image_result = DrawMatches.Draw(class_image, SURF_image);
-            img_result.Source = BitmapSourceConvert.ToBitmapSource(SURF_image_result);
+            if (SURF_image == null)
+                MessageBox.Show("Не загружено основное SURF изображение! (вкладка \"SURF детектор\"");
+            else
+            {
+                SURF_image_result = DrawMatches.Draw(class_image, SURF_image);
+                img_result.Source = BitmapSourceConvert.ToBitmapSource(SURF_image_result);
+            }
         }
         #endregion
     }

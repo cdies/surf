@@ -14,22 +14,18 @@
                     <Button x:Name="btn_clear_surf" Content="Очистить" HorizontalAlignment="Left" Height="62" Margin="568,21,0,0" VerticalAlignment="Top" Width="85" RenderTransformOrigin="0.108,0.468" Click="btn_clear_surf_Click"/>
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="514" Margin="10,116,0,0" Stroke="Black" VerticalAlignment="Top" Width="969"/>
                     <Image x:Name="img_SURF" HorizontalAlignment="Left" Height="495" Margin="19,126,0,0" VerticalAlignment="Top" Width="950"/>
-                    <Label Content="Описание:&#xD;&#xA;На этой странице реализован алгоритм &#xD;&#xA;поиска локальных особенностей SURF&#xD;&#xA;детектором." HorizontalAlignment="Left" Height="72" Margin="707,21,0,0" VerticalAlignment="Top" Width="254" FontStyle="Italic"/>
+                    <TextBlock HorizontalAlignment="Left" Height="69" Margin="676,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="293" FontStyle="Italic"><Run FontWeight="Bold" Language="ru-ru" Text="Описание:"/><LineBreak/><Run Language="ru-ru" Text="На странице &quot;"/><Run Text="SURF "/><Run Language="ru-ru" Text="детектор&quot; можно посмотреть локальные особенности исходного изображения, нажав на кнопу &quot;Показать локльные особенности&quot;."/></TextBlock>
                 </Grid>
             </TabItem>
-            <TabItem Header="Обучающая выборка">
+            <TabItem Header="Визуальные объекты для поиска">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="47*"/>
                         <ColumnDefinition Width="942*"/>
                     </Grid.ColumnDefinitions>
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="106" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="969" Grid.ColumnSpan="2"/>
-                    <Button x:Name="btn_load" Content="Загрузить &#xD;&#xA;обученную &#xD;&#xA;нейронную сеть" HorizontalAlignment="Left" Height="68" Margin="41,27,0,0" VerticalAlignment="Top" Width="107" Grid.ColumnSpan="2"/>
-                    <Button x:Name="btn_save" Content="Сохранить &#xA;обученную &#xA;нейронную сеть" HorizontalAlignment="Left" Height="68" Margin="127.8,27,0,0" VerticalAlignment="Top" Width="107" Grid.Column="1"/>
-                    <Label Content="Описание:&#xD;&#xA;На странице &quot;Обучающая выборка&quot; реализована нейронная сеть Кохеннона.&#xD;&#xA;Чтобы использовать её, необходимо выбрать обучающую выборку и нажать на кнопку&#xD;&#xA;&quot;Обучить нейронную сеть&quot;. Также обучающая выборка используется для поиска образов&#xD;&#xA;на изображении указанном в вкладке &quot;SURF детектор&quot;.&#xD;&#xA;" HorizontalAlignment="Left" Height="91" Margin="401.8,14,0,0" VerticalAlignment="Top" Width="513" FontStyle="Italic" Grid.Column="1"/>
-                    <Button x:Name="btn_leaarn" Content="Обучить&#xA;нейронную сеть" HorizontalAlignment="Left" Height="68" Margin="261.8,27,0,0" VerticalAlignment="Top" Width="107" Grid.Column="1"/>
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="94" Margin="10,140,0,0" Stroke="Black" VerticalAlignment="Top" Width="969" Grid.ColumnSpan="2"/>
-                    <Label Content="Обучающая выборка для классификации объектов:" HorizontalAlignment="Left" Margin="97.8,157,0,0" VerticalAlignment="Top" Width="298" Grid.Column="1"/>
+                    <Label Content="Выборка для классификации объектов:" HorizontalAlignment="Left" Margin="97.8,157,0,0" VerticalAlignment="Top" Width="298" Grid.Column="1"/>
                     <Button Click="btn_Click" x:Name="btn_1" Content="..." HorizontalAlignment="Left" Height="24" Margin="97.8,188,0,0" VerticalAlignment="Top" Width="30" Grid.Column="1"/>
                     <TextBox x:Name="txt_1" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="145.8,188,0,0" VerticalAlignment="Top" Width="232"/>
                     <Image x:Name="img_1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="77" Margin="17,147,0,0" VerticalAlignment="Top" Width="108"/>
@@ -37,7 +33,7 @@
                     <TextBox x:Name="txt_class_1" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="445.8,188,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="179"/>
                     <Button Click="btn_clear_Click" x:Name="btn_clear_1" Content="Очистить" Grid.Column="1" HorizontalAlignment="Left" Height="67" Margin="696.8,150,0,0" VerticalAlignment="Top" Width="76" RenderTransformOrigin="0.532,0.391"/>
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="94" Margin="10,239,0,0" Stroke="Black" VerticalAlignment="Top" Width="969" Grid.ColumnSpan="2"/>
-                    <Label Content="Обучающая выборка для классификации объектов:" HorizontalAlignment="Left" Margin="97.8,257,0,0" VerticalAlignment="Top" Width="298" Grid.Column="1"/>
+                    <Label Content="Выборка для классификации объектов:" HorizontalAlignment="Left" Margin="97.8,257,0,0" VerticalAlignment="Top" Width="298" Grid.Column="1"/>
                     <Button Click="btn_Click" x:Name="btn_2" Content="..." HorizontalAlignment="Left" Height="24" Margin="97.8,288,0,0" VerticalAlignment="Top" Width="30" Grid.Column="1"/>
                     <TextBox x:Name="txt_2" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="145.8,288,0,0" VerticalAlignment="Top" Width="232"/>
                     <Image x:Name="img_2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="77" Margin="17,248,0,0" VerticalAlignment="Top" Width="108"/>
@@ -45,7 +41,7 @@
                     <TextBox x:Name="txt_class_2" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="445.8,288,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="179"/>
                     <Button Click="btn_clear_Click" x:Name="btn_clear_2" Content="Очистить" Grid.Column="1" HorizontalAlignment="Left" Height="67" Margin="696.8,250,0,0" VerticalAlignment="Top" Width="76" RenderTransformOrigin="0.532,0.391"/>
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="94" Margin="10,338,0,0" Stroke="Black" VerticalAlignment="Top" Width="969" Grid.ColumnSpan="2"/>
-                    <Label Content="Обучающая выборка для классификации объектов:" HorizontalAlignment="Left" Margin="97.8,359,0,0" VerticalAlignment="Top" Width="298" Grid.Column="1"/>
+                    <Label Content="Выборка для классификации объектов:" HorizontalAlignment="Left" Margin="97.8,359,0,0" VerticalAlignment="Top" Width="298" Grid.Column="1"/>
                     <Button Click="btn_Click" x:Name="btn_3" Content="..." HorizontalAlignment="Left" Height="24" Margin="97.8,390,0,0" VerticalAlignment="Top" Width="30" Grid.Column="1"/>
                     <TextBox x:Name="txt_3" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="145.8,390,0,0" VerticalAlignment="Top" Width="232"/>
                     <Image x:Name="img_3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="77" Margin="17,347,0,0" VerticalAlignment="Top" Width="108"/>
@@ -53,7 +49,7 @@
                     <TextBox x:Name="txt_class_3" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="445.8,390,0,0" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="179"/>
                     <Button Click="btn_clear_Click" x:Name="btn_clear_3" Content="Очистить" Grid.Column="1" HorizontalAlignment="Left" Height="67" Margin="696.8,352,0,0" VerticalAlignment="Top" Width="76" RenderTransformOrigin="0.532,0.391"/>
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="94" Margin="10,437,0,0" Stroke="Black" VerticalAlignment="Top" Width="969" Grid.ColumnSpan="2"/>
-                    <Label Content="Обучающая выборка для классификации объектов:" HorizontalAlignment="Left" Margin="97.8,458,0,0" VerticalAlignment="Top" Width="298" Grid.Column="1"/>
+                    <Label Content="Выборка для классификации объектов:" HorizontalAlignment="Left" Margin="97.8,458,0,0" VerticalAlignment="Top" Width="298" Grid.Column="1"/>
                     <Button Click="btn_Click" x:Name="btn_4" Content="..." HorizontalAlignment="Left" Height="24" Margin="97.8,489,0,0" VerticalAlignment="Top" Width="30" Grid.Column="1"/>
                     <TextBox x:Name="txt_4" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="145.8,489,0,0" VerticalAlignment="Top" Width="232"/>
                     <Image x:Name="img_4" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="77" Margin="17,446,0,0" VerticalAlignment="Top" Width="108"/>
@@ -61,13 +57,14 @@
                     <TextBox x:Name="txt_class_4" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="445.8,489,0,0" TextWrapping="Wrap" Text="4" VerticalAlignment="Top" Width="179"/>
                     <Button Click="btn_clear_Click" x:Name="btn_clear_4" Content="Очистить" Grid.Column="1" HorizontalAlignment="Left" Height="67" Margin="696.8,451,0,0" VerticalAlignment="Top" Width="76" RenderTransformOrigin="0.532,0.391"/>
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="94" Margin="10,536,0,0" Stroke="Black" VerticalAlignment="Top" Width="969" Grid.ColumnSpan="2"/>
-                    <Label Content="Обучающая выборка для классификации объектов:" HorizontalAlignment="Left" Margin="97.8,556,0,0" VerticalAlignment="Top" Width="298" Grid.Column="1"/>
+                    <Label Content="Выборка для классификации объектов:" HorizontalAlignment="Left" Margin="97.8,556,0,0" VerticalAlignment="Top" Width="298" Grid.Column="1"/>
                     <Button Click="btn_Click" x:Name="btn_5" Content="..." HorizontalAlignment="Left" Height="24" Margin="97.8,587,0,0" VerticalAlignment="Top" Width="30" Grid.Column="1"/>
                     <TextBox x:Name="txt_5" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="145.8,587,0,0" VerticalAlignment="Top" Width="232"/>
                     <Image x:Name="img_5" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="77" Margin="17,545,0,0" VerticalAlignment="Top" Width="108"/>
                     <Label Content="Название класса:" Grid.Column="1" HorizontalAlignment="Left" Margin="445.8,556,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.302,-0.133" Width="108"/>
                     <TextBox x:Name="txt_class_5" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="445.8,587,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="179"/>
                     <Button Click="btn_clear_Click" x:Name="btn_clear_5" Content="Очистить" Grid.Column="1" HorizontalAlignment="Left" Height="67" Margin="696.8,549,0,0" VerticalAlignment="Top" Width="76" RenderTransformOrigin="0.532,0.391"/>
+                    <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="72" Margin="44,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="399" FontStyle="Italic"><Run FontWeight="Bold" Language="ru-ru" Text="Описание:"/><LineBreak/><Run Language="ru-ru" Text="На этой стрнице надо выбрать визуальные объекты для определения их на изображении, выбранном на вкладке "/><Run Text="&quot;SURF "/><Run Language="ru-ru" Text="детектор&quot;."/></TextBlock>
 
                 </Grid>
             </TabItem>
@@ -78,25 +75,27 @@
                         <ColumnDefinition Width="952*"/>
                     </Grid.ColumnDefinitions>
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="101" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="969" Grid.ColumnSpan="2"/>
-                    <Button x:Name="btn_result" Content="Отобразить &#xD;&#xA;результаты" HorizontalAlignment="Left" Height="70" Margin="69,24,0,0" VerticalAlignment="Top" Width="105" Grid.Column="1" Click="btn_result_Click"/>
-                    <Label Content="На странице &quot;Результаты&quot; показан результат работы SURF детектора и &#xD;&#xA;нейронной сети Кохеннона. Щёлкнув на изображении с обучающей выборкой&#xD;&#xA;можно посмотреть гомографию (сопоставление) этого изображения с &#xD;&#xA;исходным (см. слева). Справа представленна гисторагамма, показывающая &#xD;&#xA;работу нейронной сети (см справа)." HorizontalAlignment="Left" Height="92" Margin="470,15,0,0" VerticalAlignment="Top" Width="460" FontStyle="Italic" Grid.Column="1"/>
+                    <Button x:Name="btn_result" Content="Отобразить &#xD;&#xA;результаты" HorizontalAlignment="Left" Height="70" Margin="45.2,24,0,0" VerticalAlignment="Top" Width="105" Grid.Column="1" Click="btn_result_Click"/>
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="89" Margin="10,116,0,0" Stroke="Black" VerticalAlignment="Top" Width="969" Grid.ColumnSpan="2"/>
                     <Image MouseUp="img_MouseUp" x:Name="img_result_1" HorizontalAlignment="Left" Height="65" Margin="54,129,0,0" VerticalAlignment="Top" Width="85" Grid.Column="1" Cursor="Hand"/>
                     <Image MouseUp="img_MouseUp" x:Name="img_result_2" HorizontalAlignment="Left" Height="65" Margin="179,129,0,0" VerticalAlignment="Top" Width="85" Grid.Column="1" Cursor="Hand"/>
                     <Image MouseUp="img_MouseUp" x:Name="img_result_3" HorizontalAlignment="Left" Height="65" Margin="304,129,0,0" VerticalAlignment="Top" Width="85" Grid.Column="1" Cursor="Hand"/>
                     <Image MouseUp="img_MouseUp" x:Name="img_result_4" HorizontalAlignment="Left" Height="65" Margin="429,129,0,0" VerticalAlignment="Top" Width="85" Grid.Column="1" Cursor="Hand"/>
                     <Image MouseUp="img_MouseUp" x:Name="img_result_5" HorizontalAlignment="Left" Height="65" Margin="554,129,0,0" VerticalAlignment="Top" Width="85" Grid.Column="1" Cursor="Hand"/>
-                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="420" Margin="10,210,0,0" Stroke="Black" VerticalAlignment="Top" Width="678" Grid.ColumnSpan="2"/>
-                    <Image x:Name="img_result" HorizontalAlignment="Left" Height="402" Margin="19,219,0,0" VerticalAlignment="Top" Width="657" Grid.ColumnSpan="2"/>
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="420" Margin="10,210,0,0" Stroke="Black" VerticalAlignment="Top" Width="969" Grid.ColumnSpan="2"/>
+                    <Image x:Name="img_result" HorizontalAlignment="Left" Height="402" Margin="19,219,0,0" VerticalAlignment="Top" Width="948" Grid.ColumnSpan="2"/>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="70" Margin="243.2,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="475" FontStyle="Italic"><Run FontWeight="Bold" Language="ru-ru" Text="Описание:"/><LineBreak/><Run Language="ru-ru" Text="На странице &quot;Результаты&quot; показаны найденные объекты. Для их просмотра надо нажать на кнопку &quot;Отобразить результаты&quot;."/></TextBlock>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="65" Margin="708.2,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="212"><Run Language="ru-ru" Text="Нажми на изображение, выбранное на вкладке &quot; Визуальные объекты для поиска&quot; для того, чтобы мосмотреть его гомографию (отображение). "/></TextBlock>
                 </Grid>
             </TabItem>
             <TabItem Header="О прогамме">
                 <Grid Background="#FFE5E5E5">
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="620" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="969"/>
-                    <TextBlock HorizontalAlignment="Left" Height="79" Margin="157,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="615" FontSize="16" TextAlignment="Center"><Span FontFamily="Calibri Cyr" Language="ru-ru"><Run Text="Министерство образования и науки РФ"/></Span><LineBreak/><Span FontFamily="Calibri Cyr" Language="ru-ru"><Run Text="Московский авиационный институт"/></Span><LineBreak/><Span FontFamily="Calibri Cyr" Language="ru-ru"><Run Text="(национальный исследовательский университет)"/></Span></TextBlock>
-                    <Image HorizontalAlignment="Left" Height="156" Margin="190,211,0,0" VerticalAlignment="Top" Width="192" Source="logo_mai.png"/>
-                    <Image HorizontalAlignment="Left" Height="156" Margin="602,211,0,0" VerticalAlignment="Top" Width="170" Source="logo_fak.png"/>
-                    <TextBlock HorizontalAlignment="Left" Height="78" Margin="222,460,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="492" TextAlignment="Center" FontSize="16"><Run Language="ru-ru" Text="3 факультет, кафедра 304"/><LineBreak/><Run Language="ru-ru"/><LineBreak/><Run Language="ru-ru" Text="Москва, 2015"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Height="79" Margin="157,285,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="615" FontSize="16" TextAlignment="Center"><Span FontFamily="Calibri Cyr" Language="ru-ru"><Run Text="Министерство образования и науки РФ"/></Span><LineBreak/><Span FontFamily="Calibri Cyr" Language="ru-ru"><Run Text="Московский авиационный институт"/></Span><LineBreak/><Span FontFamily="Calibri Cyr" Language="ru-ru"><Run Text="(национальный исследовательский университет)"/></Span></TextBlock>
+                    <Image HorizontalAlignment="Left" Height="156" Margin="190,374,0,0" VerticalAlignment="Top" Width="192" Source="logo_mai.png"/>
+                    <Image HorizontalAlignment="Left" Height="156" Margin="602,374,0,0" VerticalAlignment="Top" Width="170" Source="logo_fak.png"/>
+                    <TextBlock HorizontalAlignment="Left" Height="78" Margin="222,545,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="492" TextAlignment="Center" FontSize="16"><Run Language="ru-ru" Text="3 факультет, кафедра 304"/><LineBreak/><Run Language="ru-ru"/><LineBreak/><Run Language="ru-ru" Text="Москва, 2015"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Height="211" Margin="222,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="492" FontSize="14"><Run FontFamily="Sigore" Language="ru-ru" Text="&#x9;"/><Run FontFamily="Sigore" Language="ru-ru" Text="Программа &quot;"/><Run FontFamily="Sigore" Text="SURF "/><Run FontFamily="Sigore" Language="ru-ru" Text="детектор&quot; демонстрирует работу алгоритма поиска изображений с помощью сопоставления локальных особенностей "/><Run FontFamily="Sigore" Text="SURF (Speeded up robust features). "/><Run FontFamily="Sigore" Language="ru-ru" Text="Кроме того, как показано в программе этот метод поиска может применяться для поиска нескольких образов на одном изображении."/><LineBreak/><Run FontFamily="Sigore" Text="&#x9;"/><Run FontFamily="Sigore" Language="ru-ru" Text="Как видно из примера, программа, реализованная на основе алгоритма "/><Run FontFamily="Sigore" Text="SURF"/><Run FontFamily="Sigore" Language="ru-ru" Text=" детектора способна обнаружить заданный объект. Это позволяет решать задачи по определению объекта  в робототехнике и других отраслях промышленности. Данный алгоритм расширяет возможности современной робототехники, позволяя выделить конкретный объект и проверить его характеристики, например, при использовании этого подхода на промышленном конвейере."/><LineBreak/><Run Language="ru-ru"/></TextBlock>
                 </Grid>
             </TabItem>
         </TabControl>

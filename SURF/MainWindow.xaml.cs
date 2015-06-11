@@ -62,7 +62,7 @@ namespace SURF
             if (SURF_image == null)
                 MessageBox.Show("Укажите изображение!");
             else
-                img_SURF.Source = BitmapSourceConvert.ToBitmapSource(DrawMatches.SingleDraw(SURF_image));                
+                img_SURF.Source = BitmapSourceConvert.ToBitmapSource(DrawMatches.SingleDraw(SURF_image));
         }
         // Очистка локальных особенностей
         private void btn_clear_surf_Click(object sender, RoutedEventArgs e)
@@ -165,7 +165,12 @@ namespace SURF
                 MessageBox.Show("Не загружено основное SURF изображение! (вкладка \"SURF детектор\"");
             else
             {
-                SURF_image_result = DrawMatches.Draw(class_image, SURF_image);
+                IColor[] colors = { new Bgr(System.Drawing.Color.Red), new Bgr(System.Drawing.Color.Green),
+                                 new Bgr(System.Drawing.Color.Blue), new Bgr(System.Drawing.Color.Orange),
+                                 new Bgr(System.Drawing.Color.Violet)};
+                string[] names = { txt_class_1.Text, txt_class_2.Text, txt_class_3.Text, 
+                                     txt_class_4.Text, txt_class_5.Text };
+                SURF_image_result = DrawMatches.Draw(class_image, SURF_image, names, colors);
                 img_result.Source = BitmapSourceConvert.ToBitmapSource(SURF_image_result);
             }
         }

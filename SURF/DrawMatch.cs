@@ -78,8 +78,8 @@ namespace SURF
             return result;
 
         }
-        // Возвращает все найденные объекты
-        public static Image<Bgr, Byte> Draw(Image<Bgr, Byte>[] modelImage, Image<Bgr, byte> observedImage)
+        // Возвращает все найденные объекты (рисует рамки для всех объектов)
+        public static Image<Bgr, Byte> Draw(Image<Bgr, Byte>[] modelImage, Image<Bgr, byte> observedImage, string[] names, IColor[] colors)
         {
             HomographyMatrix homography;
             VectorOfKeyPoint modelKeyPoints;
@@ -89,14 +89,14 @@ namespace SURF
             Matrix<byte> mask;
 
             observedKeyPoints = KeyPointAndFeatures(observedImage, out observedDescriptors);
-
+            
             for(int i = 0; i< modelImage.Length; i++)
             {
                 if (modelImage[i] != null)
                 {
                     FindMatch(modelImage[i], observedKeyPoints, observedDescriptors, out modelKeyPoints,
                         out indices, out mask, out homography);
-                    observedImage = DrawRectangle(modelImage[i], observedImage, homography);
+                    observedImage = DrawRectangle(modelImage[i], observedImage, homography, names[i], (Bgr)colors[i]);
                 }
             }
 
@@ -122,8 +122,8 @@ namespace SURF
             Matrix<float> Descriptors = surfCPU.DetectAndCompute(cpuImage, null, keyPoints);
             return Features2DToolbox.DrawKeypoints(image, keyPoints, new Bgr(255, 0, 0), Features2DToolbox.KeypointDrawType.DEFAULT);
         }
-        // Рисует рамку вокруг найденного изображения
-        public static Image<Bgr, Byte> DrawRectangle(Image<Bgr, Byte> modelImage, Image<Bgr, Byte> observedImage, HomographyMatrix homography)
+        // Рисует и подписывает рамку вокруг найденного изображения
+        public static Image<Bgr, Byte> DrawRectangle(Image<Bgr, Byte> modelImage, Image<Bgr, Byte> observedImage, HomographyMatrix homography, string name, Bgr color)
         {
             if (homography != null)
             {  //draw a rectangle along the projected model
@@ -135,11 +135,13 @@ namespace SURF
                new PointF(rect.Left, rect.Top)};
                 homography.ProjectPoints(pts);
 
-                observedImage.DrawPolyline(Array.ConvertAll<PointF, Point>(pts, Point.Round), true, new Bgr(Color.Red), 2);
-            }
+                observedImage.DrawPolyline(Array.ConvertAll<PointF, Point>(pts, Point.Round), true, color, 2);
 
+                MCvFont f = new MCvFont(FONT.CV_FONT_HERSHEY_COMPLEX, 1.0, 1.0);
+                //Draw "Hello, world." on the image using the specific font
+                observedImage.Draw(name, ref f, new System.Drawing.Point((int)pts[0].X, (int)pts[1].Y+21), color);                
+            }
             return observedImage;
         }
-
     }
 }

@@ -23,16 +23,16 @@ namespace SURF
     /// </summary>
     public partial class MainWindow : Window
     {
-        Image<Bgr, Byte> SURF_image;
-        //Image<Bgr, Byte> SURF_image_result;
-        Image[] img;
-        Button[] btn;
-        TextBox[] txt;
-        TextBox[] txt_class;
-        Button[] btn_clear;
-        Image<Bgr, Byte>[] class_image;
+        Image<Bgr, Byte> SURF_image; // Изображение для поиска
 
-        Image[] img_class_result;
+        Image[] img; // Ссылки на все изображения вкладки "Визуальные объекты для поиска"
+        Button[] btn; // Ссылки на все кнопки для выбора изображений (...) вкладки "Визуальные объекты для поиска"
+        TextBox[] txt; // Ссылки на элементы, отображающие путь вкладки "Визуальные объекты для поиска"
+        TextBox[] txt_class; // Ссылки на названия элементов (классов) вкладки "Визуальные объекты для поиска"
+        Button[] btn_clear; // Ссылки на кнопки очистки вкладки "Визуальные объекты для поиска"
+        Image<Bgr, Byte>[] class_image; // Массив визуальных объектов для поиска на SURF_image
+
+        Image[] img_class_result; // отображает гомографию(совпадение) (вкладка "Результаты")
         public MainWindow()
         {
             InitializeComponent();
@@ -73,12 +73,15 @@ namespace SURF
             if (SURF_image == null)
                 MessageBox.Show("Укажите изображение!");
             else
+            {
+                SURF_image = new Image<Bgr, byte>(txt_add_surf.Text);
                 img_SURF.Source = BitmapSourceConvert.ToBitmapSource(SURF_image);
+            }
         }
         #endregion
 
-        #region  вкладка "Обучающая выборка"
-        // Добавление изображений для обучающей выборки
+        #region  вкладка "Визуальные объекты для поиска"
+        // Добавление визуальных объектов для поиска
         private void btn_Click(object sender, RoutedEventArgs e)
         {
             int n = 0;
@@ -105,7 +108,7 @@ namespace SURF
             img[n].Source = BitmapSourceConvert.ToBitmapSource(class_image[n]);
             img_class_result[n].Source = BitmapSourceConvert.ToBitmapSource(class_image[n]);
         }
-        // Удаление информации из обучающей выборки
+        // Удаление информации из выборки
         private void btn_clear_Click(object sender, RoutedEventArgs e)
         {
             int n = 0;
@@ -177,6 +180,11 @@ namespace SURF
                 SURF_image = DrawMatches.Draw(class_image, SURF_image, names, colors);
                 img_result.Source = BitmapSourceConvert.ToBitmapSource(SURF_image);
             }
+        }
+        // Кнопка очистить
+        private void btn_result_clear_Click(object sender, RoutedEventArgs e)
+        {
+            img_result.Source = null;
         }
         #endregion
     }

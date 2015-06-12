@@ -75,7 +75,7 @@
                         <ColumnDefinition Width="952*"/>
                     </Grid.ColumnDefinitions>
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="101" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="969" Grid.ColumnSpan="2"/>
-                    <Button x:Name="btn_result" Content="Отобразить &#xD;&#xA;результаты" HorizontalAlignment="Left" Height="70" Margin="45.2,24,0,0" VerticalAlignment="Top" Width="105" Grid.Column="1" Click="btn_result_Click"/>
+                    <Button x:Name="btn_result" Content="Отобразить &#xD;&#xA;результаты" HorizontalAlignment="Left" Height="70" Margin="27.2,24,0,0" VerticalAlignment="Top" Width="123" Grid.Column="1" Click="btn_result_Click"/>
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="89" Margin="10,116,0,0" Stroke="Black" VerticalAlignment="Top" Width="969" Grid.ColumnSpan="2"/>
                     <Image MouseUp="img_MouseUp" x:Name="img_result_1" HorizontalAlignment="Left" Height="65" Margin="54,129,0,0" VerticalAlignment="Top" Width="85" Grid.Column="1" Cursor="Hand"/>
                     <Image MouseUp="img_MouseUp" x:Name="img_result_2" HorizontalAlignment="Left" Height="65" Margin="179,129,0,0" VerticalAlignment="Top" Width="85" Grid.Column="1" Cursor="Hand"/>
@@ -84,8 +84,9 @@
                     <Image MouseUp="img_MouseUp" x:Name="img_result_5" HorizontalAlignment="Left" Height="65" Margin="554,129,0,0" VerticalAlignment="Top" Width="85" Grid.Column="1" Cursor="Hand"/>
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="420" Margin="10,210,0,0" Stroke="Black" VerticalAlignment="Top" Width="969" Grid.ColumnSpan="2"/>
                     <Image x:Name="img_result" HorizontalAlignment="Left" Height="402" Margin="19,219,0,0" VerticalAlignment="Top" Width="948" Grid.ColumnSpan="2"/>
-                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="70" Margin="243.2,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="475" FontStyle="Italic"><Run FontWeight="Bold" Language="ru-ru" Text="Описание:"/><LineBreak/><Run Language="ru-ru" Text="На странице &quot;Результаты&quot; показаны найденные объекты. Для их просмотра надо нажать на кнопку &quot;Отобразить результаты&quot;."/></TextBlock>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="70" Margin="363.2,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="475" FontStyle="Italic"><Run FontWeight="Bold" Language="ru-ru" Text="Описание:"/><LineBreak/><Run Language="ru-ru" Text="На странице &quot;Результаты&quot; показаны найденные объекты. Для их просмотра надо нажать на кнопку &quot;Отобразить результаты&quot;."/></TextBlock>
                     <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="65" Margin="708.2,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="212"><Run Language="ru-ru" Text="Нажми на изображение, выбранное на вкладке &quot; Визуальные объекты для поиска&quot; для того, чтобы мосмотреть его гомографию (отображение). "/></TextBlock>
+                    <Button x:Name="btn_result_clear" Content="Очистить" HorizontalAlignment="Left" Height="70" Margin="194.2,24,0,0" VerticalAlignment="Top" Width="99" Grid.Column="1" Click="btn_result_clear_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="О прогамме">

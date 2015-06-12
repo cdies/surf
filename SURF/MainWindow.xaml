@@ -89,7 +89,7 @@
                     <Button x:Name="btn_result_clear" Content="Очистить" HorizontalAlignment="Left" Height="70" Margin="194.2,24,0,0" VerticalAlignment="Top" Width="99" Grid.Column="1" Click="btn_result_clear_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="О прогамме">
+            <TabItem Header="О программе">
                 <Grid Background="#FFE5E5E5">
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="620" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="969"/>
                     <TextBlock HorizontalAlignment="Left" Height="79" Margin="157,285,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="615" FontSize="16" TextAlignment="Center"><Span FontFamily="Calibri Cyr" Language="ru-ru"><Run Text="Министерство образования и науки РФ"/></Span><LineBreak/><Span FontFamily="Calibri Cyr" Language="ru-ru"><Run Text="Московский авиационный институт"/></Span><LineBreak/><Span FontFamily="Calibri Cyr" Language="ru-ru"><Run Text="(национальный исследовательский университет)"/></Span></TextBlock>

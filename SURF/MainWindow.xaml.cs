@@ -24,7 +24,7 @@ namespace SURF
     public partial class MainWindow : Window
     {
         Image<Bgr, Byte> SURF_image;
-        Image<Bgr, Byte> SURF_image_result;
+        //Image<Bgr, Byte> SURF_image_result;
         Image[] img;
         Button[] btn;
         TextBox[] txt;
@@ -62,7 +62,10 @@ namespace SURF
             if (SURF_image == null)
                 MessageBox.Show("Укажите изображение!");
             else
+            {
+                SURF_image = new Image<Bgr, byte>(txt_add_surf.Text);
                 img_SURF.Source = BitmapSourceConvert.ToBitmapSource(DrawMatches.SingleDraw(SURF_image));
+            }
         }
         // Очистка локальных особенностей
         private void btn_clear_surf_Click(object sender, RoutedEventArgs e)
@@ -133,8 +136,8 @@ namespace SURF
         // Отображение гомографии и гистограммы нейронной сети
         private void img_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (SURF_image_result == null)
-                MessageBox.Show("Результат не расчитан (нажмите кнопку \"Отобразить результат\")");
+            if (img_result.Source == null)
+                MessageBox.Show("Результат не расчитан (нажмите кнопку \"Отобразить результаты\")");
             else
             {
                 int n = 0;
@@ -153,8 +156,8 @@ namespace SURF
                     default:
                         break;
                 }
-
-                Image<Bgr, Byte> result = DrawMatches.DrawWithHomography(class_image[n], SURF_image, SURF_image_result);
+                Image<Bgr, Byte> temp = new Image<Bgr, byte>(txt_add_surf.Text);
+                Image<Bgr, Byte> result = DrawMatches.DrawWithHomography(class_image[n], temp, SURF_image);
                 img_result.Source = BitmapSourceConvert.ToBitmapSource(result);
             }
         }
@@ -162,16 +165,17 @@ namespace SURF
         private void btn_result_Click(object sender, RoutedEventArgs e)
         {
             if (SURF_image == null)
-                MessageBox.Show("Не загружено основное SURF изображение! (вкладка \"SURF детектор\"");
+                MessageBox.Show("Не загружено основное SURF изображение! (вкладка \"SURF детектор\")");
             else
             {
+                SURF_image = new Image<Bgr, byte>(txt_add_surf.Text);
                 IColor[] colors = { new Bgr(System.Drawing.Color.Red), new Bgr(System.Drawing.Color.Green),
                                  new Bgr(System.Drawing.Color.Blue), new Bgr(System.Drawing.Color.Orange),
                                  new Bgr(System.Drawing.Color.Violet)};
                 string[] names = { txt_class_1.Text, txt_class_2.Text, txt_class_3.Text, 
                                      txt_class_4.Text, txt_class_5.Text };
-                SURF_image_result = DrawMatches.Draw(class_image, SURF_image, names, colors);
-                img_result.Source = BitmapSourceConvert.ToBitmapSource(SURF_image_result);
+                SURF_image = DrawMatches.Draw(class_image, SURF_image, names, colors);
+                img_result.Source = BitmapSourceConvert.ToBitmapSource(SURF_image);
             }
         }
         #endregion

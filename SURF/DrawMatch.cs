@@ -10,6 +10,7 @@ using Emgu.CV.CvEnum;
 using Emgu.CV.Features2D;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
+using System.Threading.Tasks;
 
 
 namespace SURF
@@ -18,9 +19,11 @@ namespace SURF
     {
         // Находит гомографию и ругие параметры
         public static void FindMatch(Image<Bgr, Byte> modelImage, VectorOfKeyPoint observedKeyPoints,
-            Matrix<float> observedDescriptors, out VectorOfKeyPoint modelKeyPoints, 
-            out Matrix<int> indices, out Matrix<byte> mask, out HomographyMatrix homography)
+            Matrix<float> observedDescriptors,out VectorOfKeyPoint modelKeyPoints, out Matrix<int> indices, 
+            out Matrix<byte> mask, out HomographyMatrix homography)
         {
+            
+
             int k = 2;
             double uniquenessThreshold = 0.8;
             SURFDetector surfCPU = new SURFDetector(500, false);
@@ -81,24 +84,27 @@ namespace SURF
         // Возвращает все найденные объекты (рисует рамки для всех объектов)
         public static Image<Bgr, Byte> Draw(Image<Bgr, Byte>[] modelImage, Image<Bgr, byte> observedImage, string[] names, IColor[] colors)
         {
-            HomographyMatrix homography;
-            VectorOfKeyPoint modelKeyPoints;
+            HomographyMatrix[] homography = new HomographyMatrix[names.Length];
+            VectorOfKeyPoint[] modelKeyPoints = new VectorOfKeyPoint[names.Length];
+            Matrix<int>[] indices = new Matrix<int>[names.Length];
+            Matrix<byte>[] mask = new Matrix<byte>[names.Length];
+
             VectorOfKeyPoint observedKeyPoints;
             Matrix<float> observedDescriptors;
-            Matrix<int> indices;
-            Matrix<byte> mask;
+            
 
             observedKeyPoints = KeyPointAndFeatures(observedImage, out observedDescriptors);
-            
-            for(int i = 0; i< modelImage.Length; i++)
+            object o = new object();
+            Parallel.For(0, names.Length, i =>
             {
                 if (modelImage[i] != null)
                 {
-                    FindMatch(modelImage[i], observedKeyPoints, observedDescriptors, out modelKeyPoints,
-                        out indices, out mask, out homography);
-                    observedImage = DrawRectangle(modelImage[i], observedImage, homography, names[i], (Bgr)colors[i]);
+                    FindMatch(modelImage[i], observedKeyPoints, observedDescriptors,out modelKeyPoints[i], 
+                        out indices[i], out mask[i], out homography[i]);
+                    lock (o)
+                        observedImage = DrawRectangle(modelImage[i], observedImage, homography[i], names[i], (Bgr)colors[i]);
                 }
-            }
+            });
 
             return observedImage;
         }

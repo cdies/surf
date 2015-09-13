@@ -234,7 +234,7 @@ namespace SURF
                                 img_Camera.Source = BitmapSourceConvert.ToBitmapSource(result);
                             });
                         }
-                        catch { }
+                        catch { continue; }
                         Thread.Sleep(200);
                     }
                 }

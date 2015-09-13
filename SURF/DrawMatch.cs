@@ -96,10 +96,15 @@ namespace SURF
             {
                 if (modelImage[i] != null)
                 {
-                    FindMatch(modelImage[i], observedKeyPoints, observedDescriptors,out modelKeyPoints[i], 
-                        out indices[i], out mask[i], out homography[i]);
-                    lock (o)
-                        observedImage = DrawRectangle(modelImage[i], observedImage, homography[i], names[i], (Bgr)colors[i]);
+                    try
+                    {
+                        FindMatch(modelImage[i], observedKeyPoints, observedDescriptors, out modelKeyPoints[i],
+                            out indices[i], out mask[i], out homography[i]);
+
+                        lock (o)
+                            observedImage = DrawRectangle(modelImage[i], observedImage, homography[i], names[i], (Bgr)colors[i]);
+                    }
+                    catch { }
                 }
             });
 

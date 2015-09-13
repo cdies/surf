@@ -31,15 +31,24 @@ namespace SURF
         {
             using (System.Drawing.Bitmap source = image.Bitmap)
             {
-                IntPtr ptr = source.GetHbitmap(); //obtain the Hbitmap
+                BitmapSource bs;
+                try
+                {
+                    IntPtr ptr = source.GetHbitmap(); //obtain the Hbitmap
 
-                BitmapSource bs = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                    ptr,
-                    IntPtr.Zero,
-                    Int32Rect.Empty,
-                    System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
+                    bs = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                        ptr,
+                        IntPtr.Zero,
+                        Int32Rect.Empty,
+                        System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
 
-                DeleteObject(ptr); //release the HBitmap
+                    DeleteObject(ptr); //release the HBitmap
+                }
+                catch
+                {
+                    return null;
+                }
+
                 return bs;
             }
         }

@@ -211,33 +211,46 @@ namespace SURF
 
         private void Video(object o)
         {
-            using (var capture = new Capture())
+            try
             {
-                IColor[] colors = { new Bgr(System.Drawing.Color.Red), new Bgr(System.Drawing.Color.Green),
+                using (Capture capture = new Capture())
+                {
+                    IColor[] colors = { new Bgr(System.Drawing.Color.Red), new Bgr(System.Drawing.Color.Green),
                                  new Bgr(System.Drawing.Color.Blue), new Bgr(System.Drawing.Color.Orange),
                                  new Bgr(System.Drawing.Color.Violet)};
-                string[] names = (string[])o;               
-                Image<Bgr, byte> result;
+                    string[] names = (string[])o;
+                    Image<Bgr, byte> result;
 
-                capture.Start();
-                while (true)
-                {
-                    result = capture.QueryFrame();
-                    if (result != null)
-                    {                        
-                        try
+                    capture.Start();
+
+                    while (true)
+                    {
+                        result = capture.QueryFrame();
+                        if (result != null)
                         {
-                            result = DrawMatches.Draw(class_image, result, names, colors);                         
-
-                            this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate()
+                            try
                             {
-                                img_Camera.Source = BitmapSourceConvert.ToBitmapSource(result);
-                            });
+                                result = DrawMatches.Draw(class_image, result, names, colors);
+
+                                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate()
+                                {
+                                    img_Camera.Source = BitmapSourceConvert.ToBitmapSource(result);
+                                });
+                            }
+                            catch { continue; }
+                            Thread.Sleep(200);
                         }
-                        catch { continue; }
-                        Thread.Sleep(200);
                     }
                 }
+            }
+            catch(NullReferenceException)
+            {
+                MessageBox.Show("Не работает камера!");
+                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate()
+                {
+                    Start_btn.IsEnabled = true;
+                });
+                return;
             }
         }
         #endregion
@@ -245,7 +258,8 @@ namespace SURF
         // Удалить поток камеры при закрытии
         private void Window_Closed(object sender, EventArgs e)
         {
-            camera_thread.Abort();
+            if(camera_thread.IsAlive)
+                camera_thread.Abort();
         }
     }
 }

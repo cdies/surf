@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace SURF
 {
@@ -31,6 +33,7 @@ namespace SURF
         TextBox[] txt_class; // Ссылки на названия элементов (классов) вкладки "Визуальные объекты для поиска"
         Button[] btn_clear; // Ссылки на кнопки очистки вкладки "Визуальные объекты для поиска"
         Image<Bgr, Byte>[] class_image; // Массив визуальных объектов для поиска на SURF_image
+        Thread camera_thread;
 
         Image[] img_class_result; // отображает гомографию(совпадение) (вкладка "Результаты")
         public MainWindow()
@@ -187,5 +190,62 @@ namespace SURF
             img_result.Source = null;
         }
         #endregion
+
+        #region  вкладка "Web Камера"
+        // Кнопка Start
+        private void Start_btn_Click(object sender, RoutedEventArgs e)
+        {
+            string[] names = { txt_class_1.Text, txt_class_2.Text, txt_class_3.Text, 
+                                     txt_class_4.Text, txt_class_5.Text };
+            camera_thread = new Thread(new ParameterizedThreadStart(Video));
+            camera_thread.Start(names);
+            Start_btn.IsEnabled = false;
+        }
+        // Кнопка Stop
+        private void Stop_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (camera_thread.IsAlive)
+                camera_thread.Abort();
+            Start_btn.IsEnabled = true;
+        }
+
+        private void Video(object o)
+        {
+            using (var capture = new Capture())
+            {
+                IColor[] colors = { new Bgr(System.Drawing.Color.Red), new Bgr(System.Drawing.Color.Green),
+                                 new Bgr(System.Drawing.Color.Blue), new Bgr(System.Drawing.Color.Orange),
+                                 new Bgr(System.Drawing.Color.Violet)};
+                string[] names = (string[])o;               
+                Image<Bgr, byte> result;
+
+                capture.Start();
+                while (true)
+                {
+                    result = capture.QueryFrame();
+                    if (result != null)
+                    {                        
+                        try
+                        {
+                            result = DrawMatches.Draw(class_image, result, names, colors);                         
+
+                            this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate()
+                            {
+                                img_Camera.Source = BitmapSourceConvert.ToBitmapSource(result);
+                            });
+                        }
+                        catch { }
+                        Thread.Sleep(200);
+                    }
+                }
+            }
+        }
+        #endregion
+
+        // Удалить поток камеры при закрытии
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            camera_thread.Abort();
+        }
     }
 }

@@ -55,9 +55,11 @@ namespace SURF
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
+            {
                 txt_add_surf.Text = openFileDialog.FileName;
-            SURF_image = new Image<Bgr, byte>(txt_add_surf.Text);
-            img_SURF.Source = BitmapSourceConvert.ToBitmapSource(SURF_image);
+                SURF_image = new Image<Bgr, byte>(txt_add_surf.Text);
+                img_SURF.Source = BitmapSourceConvert.ToBitmapSource(SURF_image);
+            }
         }
         // Определение локальных особенностей
         private void btn_surf_Click(object sender, RoutedEventArgs e)
@@ -87,29 +89,32 @@ namespace SURF
         // Добавление визуальных объектов для поиска
         private void btn_Click(object sender, RoutedEventArgs e)
         {
-            int n = 0;
-            switch ((sender as Button).Name)
-            {
-                case "btn_1":
-                    n = 0; break;
-                case "btn_2":
-                    n = 1; break;
-                case "btn_3":
-                    n = 2; break;
-                case "btn_4":
-                    n = 3; break;
-                case "btn_5":
-                    n = 4; break;
-                default:
-                    break;
-            }
-
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
+            {
+                int n = 0;
+                switch ((sender as Button).Name)
+                {
+                    case "btn_1":
+                        n = 0; break;
+                    case "btn_2":
+                        n = 1; break;
+                    case "btn_3":
+                        n = 2; break;
+                    case "btn_4":
+                        n = 3; break;
+                    case "btn_5":
+                        n = 4; break;
+                    default:
+                        break;
+                }
+
+
                 txt[n].Text = openFileDialog.FileName;
-            class_image[n] = new Image<Bgr, byte>(txt[n].Text);
-            img[n].Source = BitmapSourceConvert.ToBitmapSource(class_image[n]);
-            img_class_result[n].Source = BitmapSourceConvert.ToBitmapSource(class_image[n]);
+                class_image[n] = new Image<Bgr, byte>(txt[n].Text);
+                img[n].Source = BitmapSourceConvert.ToBitmapSource(class_image[n]);
+                img_class_result[n].Source = BitmapSourceConvert.ToBitmapSource(class_image[n]);
+            }
         }
         // Удаление информации из выборки
         private void btn_clear_Click(object sender, RoutedEventArgs e)
@@ -178,7 +183,7 @@ namespace SURF
                 IColor[] colors = { new Bgr(System.Drawing.Color.Red), new Bgr(System.Drawing.Color.Green),
                                  new Bgr(System.Drawing.Color.Blue), new Bgr(System.Drawing.Color.Orange),
                                  new Bgr(System.Drawing.Color.Violet)};
-                string[] names = { txt_class_1.Text, txt_class_2.Text, txt_class_3.Text, 
+                string[] names = { txt_class_1.Text, txt_class_2.Text, txt_class_3.Text,
                                      txt_class_4.Text, txt_class_5.Text };
                 SURF_image = DrawMatches.Draw(class_image, SURF_image, names, colors);
                 img_result.Source = BitmapSourceConvert.ToBitmapSource(SURF_image);
@@ -195,7 +200,7 @@ namespace SURF
         // Кнопка Start
         private void Start_btn_Click(object sender, RoutedEventArgs e)
         {
-            string[] names = { txt_class_1.Text, txt_class_2.Text, txt_class_3.Text, 
+            string[] names = { txt_class_1.Text, txt_class_2.Text, txt_class_3.Text,
                                      txt_class_4.Text, txt_class_5.Text };
             camera_thread = new Thread(new ParameterizedThreadStart(Video));
             camera_thread.Start(names);
@@ -204,8 +209,9 @@ namespace SURF
         // Кнопка Stop
         private void Stop_btn_Click(object sender, RoutedEventArgs e)
         {
-            if (camera_thread.IsAlive)
-                camera_thread.Abort();
+            if (camera_thread != null)
+                if (camera_thread.IsAlive)
+                    camera_thread.Abort();
             Start_btn.IsEnabled = true;
         }
 
@@ -232,7 +238,7 @@ namespace SURF
                             {
                                 result = DrawMatches.Draw(class_image, result, names, colors);
 
-                                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate()
+                                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
                                 {
                                     img_Camera.Source = BitmapSourceConvert.ToBitmapSource(result);
                                 });
@@ -243,10 +249,10 @@ namespace SURF
                     }
                 }
             }
-            catch(NullReferenceException)
+            catch (NullReferenceException)
             {
                 MessageBox.Show("Не работает камера!");
-                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate()
+                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
                 {
                     Start_btn.IsEnabled = true;
                 });
@@ -258,7 +264,7 @@ namespace SURF
         // Удалить поток камеры при закрытии
         private void Window_Closed(object sender, EventArgs e)
         {
-            if(camera_thread.IsAlive)
+            if (camera_thread.IsAlive)
                 camera_thread.Abort();
         }
     }

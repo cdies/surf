@@ -35,34 +35,34 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Emgu.CV">
-      <HintPath>..\..\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.CV.dll</HintPath>
+      <HintPath>C:\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.CV.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV.DebuggerVisualizers.VS2012">
-      <HintPath>..\..\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.CV.DebuggerVisualizers.VS2012.dll</HintPath>
+      <HintPath>C:\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.CV.DebuggerVisualizers.VS2012.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV.GPU">
-      <HintPath>..\..\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.CV.GPU.dll</HintPath>
+      <HintPath>C:\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.CV.GPU.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV.ML">
-      <HintPath>..\..\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.CV.ML.dll</HintPath>
+      <HintPath>C:\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.CV.ML.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV.OCR">
-      <HintPath>..\..\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.CV.OCR.dll</HintPath>
+      <HintPath>C:\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.CV.OCR.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV.OpenCL">
-      <HintPath>..\..\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.CV.OpenCL.dll</HintPath>
+      <HintPath>C:\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.CV.OpenCL.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV.Stitching">
-      <HintPath>..\..\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.CV.Stitching.dll</HintPath>
+      <HintPath>C:\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.CV.Stitching.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV.UI">
-      <HintPath>..\..\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.CV.UI.dll</HintPath>
+      <HintPath>C:\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.CV.UI.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV.VideoStab">
-      <HintPath>..\..\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.CV.VideoStab.dll</HintPath>
+      <HintPath>C:\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.CV.VideoStab.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.Util">
-      <HintPath>..\..\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.Util.dll</HintPath>
+      <HintPath>C:\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\Emgu.Util.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -78,6 +78,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="ZedGraph">
+      <HintPath>C:\Emgu\libemgucv-windows-universal-2.4.10.1940\bin\ZedGraph.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SURF", "SURF\SURF.csproj", "{ABE71E60-7A40-4296-9E8F-B8B15602A7F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedUITestProject", "CodedUITestProject\CodedUITestProject.csproj", "{1982105F-0A43-4931-8626-1AEDB602E345}"
